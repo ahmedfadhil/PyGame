@@ -11,8 +11,10 @@ pygame.display.set_caption('A bit Racey')
 black = (0, 0, 0)
 white = (255, 255, 255)
 
+car_width = 73
+
 clock = pygame.time.Clock()
-crashed = False
+
 carImg = pygame.image.load('racecar.png')
 
 
@@ -26,10 +28,11 @@ def game_loop():
     x_change = 0
     car_speed = 0
 
-    while not crashed:
+    gameExit = False
+    while not gameExit:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                crashed = True
+                gameExit = True
 
             ############################
             if event.type == pygame.KEYDOWN:
@@ -46,6 +49,9 @@ def game_loop():
         ##
         gameDisplay.fill(white)
         car(x, y)
+
+        if x > display_width - car_width or x < 0:
+            gameExit = True
 
         pygame.display.update()
         clock.tick(60)
