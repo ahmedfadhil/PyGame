@@ -9,8 +9,10 @@ display_height = 600
 
 black = (0, 0, 0)
 white = (255, 255, 255)
-red = (255, 0, 0)
+red = (200, 0, 0)
 green = (0, 200, 0)
+light_red = (255, 0, 0)
+light_green = (0, 255, 0)
 block_color = (53, 115, 255)
 
 car_width = 73
@@ -46,6 +48,20 @@ def message_display(text):
     TextSurf, TextRect = text_objects(text, largeText)
     TextRect.center = ((display_width / 2), (display_height / 2))
     gameDisplay.blit(TextSurf, TextRect)
+
+    mouse = pygame.mouse.get_pos()
+    if 150 + 100 > mouse[0] > 150 and 450 + 50 > mouse[1] > 450:
+        pygame.draw.rect(gameDisplay, light_green, (150, 450, 100, 50))
+    else:
+        pygame.draw.rect(gameDisplay, green, (150, 450, 100, 50))
+    # Adding the text
+    smallText = pygame.font.Font('freesansbold.ttf', 20)
+    TextSurf, TextRect = text_objects("Go!", smallText)
+    # center the text
+    TextRect.center = ((150 + (450 / 2)), (450 + (50 / 2)))
+    gameDisplay.blit(TextSurf, TextRect)
+
+    pygame.draw.rect(gameDisplay, red, (500, 500, 100, 50))
 
     pygame.display.update()
 
