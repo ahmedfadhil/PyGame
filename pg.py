@@ -49,8 +49,8 @@ def message_display(text):
     TextRect.center = ((display_width / 2), (display_height / 2))
     gameDisplay.blit(TextSurf, TextRect)
 
-    button("Go", (150, 450, 100, 50), green, light_green)
-    button("Stop", (550, 450, 100, 50), red, light_red)
+    button("Go", (150, 450, 100, 50), green, light_green, game_loop)
+    button("Stop", (550, 450, 100, 50), red, light_red, quitgame)
 
     pygame.display.update()
 
@@ -63,10 +63,20 @@ def crash():
     message_display('You Crashed')
 
 
-def button(msg, x, y, w, h, ic, ac):
+def button(msg, x, y, w, h, ic, ac, action=None):
     mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
         pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
+        if click[0] == 1 and action != None:
+            action()
+            # if action == "play":
+            #     game_loop()
+            # elif action == quitgame:
+            #     pygame.quit()
+            #     quit()
+
+
     else:
         pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
     # Adding the text
@@ -75,6 +85,11 @@ def button(msg, x, y, w, h, ic, ac):
     # center the text
     TextRect.center = ((x + (y / 2)), (y + (h / 2)))
     gameDisplay.blit(TextSurf, TextRect)
+
+
+def quitgame():
+    pygame.quit()
+    quit()
 
 
 def game_intro():
