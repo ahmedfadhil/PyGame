@@ -49,19 +49,8 @@ def message_display(text):
     TextRect.center = ((display_width / 2), (display_height / 2))
     gameDisplay.blit(TextSurf, TextRect)
 
-    mouse = pygame.mouse.get_pos()
-    if 150 + 100 > mouse[0] > 150 and 450 + 50 > mouse[1] > 450:
-        pygame.draw.rect(gameDisplay, light_green, (150, 450, 100, 50))
-    else:
-        pygame.draw.rect(gameDisplay, green, (150, 450, 100, 50))
-    # Adding the text
-    smallText = pygame.font.Font('freesansbold.ttf', 20)
-    TextSurf, TextRect = text_objects("Go!", smallText)
-    # center the text
-    TextRect.center = ((150 + (450 / 2)), (450 + (50 / 2)))
-    gameDisplay.blit(TextSurf, TextRect)
-
-    pygame.draw.rect(gameDisplay, red, (500, 500, 100, 50))
+    button("Go", (150, 450, 100, 50), green, light_green)
+    button("Stop", (550, 450, 100, 50), red, light_red)
 
     pygame.display.update()
 
@@ -72,6 +61,20 @@ def message_display(text):
 
 def crash():
     message_display('You Crashed')
+
+
+def button(msg, x, y, w, h, ic, ac):
+    mouse = pygame.mouse.get_pos()
+    if x + w > mouse[0] > x and y + h > mouse[1] > y:
+        pygame.draw.rect(gameDisplay, ac, (x, y, w, h))
+    else:
+        pygame.draw.rect(gameDisplay, ic, (x, y, w, h))
+    # Adding the text
+    smallText = pygame.font.Font('freesansbold.ttf', 20)
+    TextSurf, TextRect = text_objects(msg, smallText)
+    # center the text
+    TextRect.center = ((x + (y / 2)), (y + (h / 2)))
+    gameDisplay.blit(TextSurf, TextRect)
 
 
 def game_intro():
